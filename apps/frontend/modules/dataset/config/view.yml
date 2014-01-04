@@ -1,3 +1,4 @@
 detalleSuccess:
   layout: layout_detalle
-  stylesheets: ['detalle.css']
+  stylesheets: ['detalle.css', '../js/rating/jRating.jquery.css']
+  javascripts: ['rating/jRating.jquery.js']

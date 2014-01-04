@@ -29,4 +29,18 @@ class datasetActions extends sfActions
 		$this->forward404Unless($id = $request->getParameter('id'));
 		$this->dataset = DatasetQuery::create()->findPk($id);	
 	}
+
+	public function executeValorizador(sfWebRequest $request){
+		$this->forward404Unless($id = $request->getParameter('idBox'));
+		$this->forward404Unless($id = $request->getParameter('rate'));
+
+		$id = intval( $request->getParameter('idBox') );
+		$rate = floatval( $request->getParameter('rate') );
+
+		$val = DatasetValoracionQuery::create()->filterByDatasetId($id)->findOneOrCreate();
+
+		$val->addVoto($rate)->save();
+
+		return $this->renderText(json_encode(array('status'=>1)));
+	}
 }

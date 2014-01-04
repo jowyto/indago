@@ -20,3 +20,10 @@ propel:
     compresion_id: ~
     cabeceras: longvarchar
     created_at: ~
+
+  dataset_valoracion:
+    _attributes: { phpName: DatasetValoracion }
+    id: ~
+    dataset_id: ~
+    promedio: {type: integer, default: 0}
+    nvotos: {type: integer, default: 0}

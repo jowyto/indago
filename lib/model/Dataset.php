@@ -22,4 +22,10 @@ class Dataset extends BaseDataset
 	public function __toString(){
 		return $this->getDataset();
 	}
+
+	public function getValoracion(){
+		$vals = $this->getDatasetValoracions();
+		if($vals->count()) return $vals[0];
+		return new DatasetValoracion();
+	}
 }
