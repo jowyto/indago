@@ -2,7 +2,7 @@
 
 
 /**
- * Base class that represents a row from the 'compresion' table.
+ * Base class that represents a row from the 'dataset_valoracion' table.
  *
  *
  *
@@ -12,18 +12,18 @@
  *
  * @package    propel.generator.lib.model.om
  */
-abstract class BaseCompresion extends BaseObject implements Persistent
+abstract class BaseDatasetValoracion extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'CompresionPeer';
+    const PEER = 'DatasetValoracionPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        CompresionPeer
+     * @var        DatasetValoracionPeer
      */
     protected static $peer;
 
@@ -40,16 +40,29 @@ abstract class BaseCompresion extends BaseObject implements Persistent
     protected $id;
 
     /**
-     * The value for the compresion field.
-     * @var        string
+     * The value for the dataset_id field.
+     * @var        int
      */
-    protected $compresion;
+    protected $dataset_id;
 
     /**
-     * @var        PropelObjectCollection|Dataset[] Collection to store aggregation of Dataset objects.
+     * The value for the promedio field.
+     * Note: this column has a database default value of: 0
+     * @var        int
      */
-    protected $collDatasets;
-    protected $collDatasetsPartial;
+    protected $promedio;
+
+    /**
+     * The value for the nvotos field.
+     * Note: this column has a database default value of: 0
+     * @var        int
+     */
+    protected $nvotos;
+
+    /**
+     * @var        Dataset
+     */
+    protected $aDataset;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -66,10 +79,26 @@ abstract class BaseCompresion extends BaseObject implements Persistent
     protected $alreadyInValidation = false;
 
     /**
-     * An array of objects scheduled for deletion.
-     * @var		PropelObjectCollection
+     * Applies default values to this object.
+     * This method should be called from the object's constructor (or
+     * equivalent initialization method).
+     * @see        __construct()
      */
-    protected $datasetsScheduledForDeletion = null;
+    public function applyDefaultValues()
+    {
+        $this->promedio = 0;
+        $this->nvotos = 0;
+    }
+
+    /**
+     * Initializes internal state of BaseDatasetValoracion object.
+     * @see        applyDefaults()
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->applyDefaultValues();
+    }
 
     /**
      * Get the [id] column value.
@@ -82,20 +111,40 @@ abstract class BaseCompresion extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [compresion] column value.
+     * Get the [dataset_id] column value.
      *
-     * @return string
+     * @return int
      */
-    public function getCompresion()
+    public function getDatasetId()
     {
-        return $this->compresion;
+        return $this->dataset_id;
+    }
+
+    /**
+     * Get the [promedio] column value.
+     *
+     * @return int
+     */
+    public function getPromedio()
+    {
+        return $this->promedio;
+    }
+
+    /**
+     * Get the [nvotos] column value.
+     *
+     * @return int
+     */
+    public function getNvotos()
+    {
+        return $this->nvotos;
     }
 
     /**
      * Set the value of [id] column.
      *
      * @param int $v new value
-     * @return Compresion The current object (for fluent API support)
+     * @return DatasetValoracion The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -105,7 +154,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[] = CompresionPeer::ID;
+            $this->modifiedColumns[] = DatasetValoracionPeer::ID;
         }
 
 
@@ -113,25 +162,71 @@ abstract class BaseCompresion extends BaseObject implements Persistent
     } // setId()
 
     /**
-     * Set the value of [compresion] column.
+     * Set the value of [dataset_id] column.
      *
-     * @param string $v new value
-     * @return Compresion The current object (for fluent API support)
+     * @param int $v new value
+     * @return DatasetValoracion The current object (for fluent API support)
      */
-    public function setCompresion($v)
+    public function setDatasetId($v)
     {
         if ($v !== null) {
-            $v = (string) $v;
+            $v = (int) $v;
         }
 
-        if ($this->compresion !== $v) {
-            $this->compresion = $v;
-            $this->modifiedColumns[] = CompresionPeer::COMPRESION;
+        if ($this->dataset_id !== $v) {
+            $this->dataset_id = $v;
+            $this->modifiedColumns[] = DatasetValoracionPeer::DATASET_ID;
+        }
+
+        if ($this->aDataset !== null && $this->aDataset->getId() !== $v) {
+            $this->aDataset = null;
         }
 
 
         return $this;
-    } // setCompresion()
+    } // setDatasetId()
+
+    /**
+     * Set the value of [promedio] column.
+     *
+     * @param int $v new value
+     * @return DatasetValoracion The current object (for fluent API support)
+     */
+    public function setPromedio($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->promedio !== $v) {
+            $this->promedio = $v;
+            $this->modifiedColumns[] = DatasetValoracionPeer::PROMEDIO;
+        }
+
+
+        return $this;
+    } // setPromedio()
+
+    /**
+     * Set the value of [nvotos] column.
+     *
+     * @param int $v new value
+     * @return DatasetValoracion The current object (for fluent API support)
+     */
+    public function setNvotos($v)
+    {
+        if ($v !== null) {
+            $v = (int) $v;
+        }
+
+        if ($this->nvotos !== $v) {
+            $this->nvotos = $v;
+            $this->modifiedColumns[] = DatasetValoracionPeer::NVOTOS;
+        }
+
+
+        return $this;
+    } // setNvotos()
 
     /**
      * Indicates whether the columns in this object are only set to default values.
@@ -143,6 +238,14 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      */
     public function hasOnlyDefaultValues()
     {
+            if ($this->promedio !== 0) {
+                return false;
+            }
+
+            if ($this->nvotos !== 0) {
+                return false;
+            }
+
         // otherwise, everything was equal, so return true
         return true;
     } // hasOnlyDefaultValues()
@@ -166,7 +269,9 @@ abstract class BaseCompresion extends BaseObject implements Persistent
         try {
 
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->compresion = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+            $this->dataset_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
+            $this->promedio = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+            $this->nvotos = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -175,10 +280,10 @@ abstract class BaseCompresion extends BaseObject implements Persistent
                 $this->ensureConsistency();
             }
 
-            return $startcol + 2; // 2 = CompresionPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 4; // 4 = DatasetValoracionPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating Compresion object", $e);
+            throw new PropelException("Error populating DatasetValoracion object", $e);
         }
     }
 
@@ -198,6 +303,9 @@ abstract class BaseCompresion extends BaseObject implements Persistent
     public function ensureConsistency()
     {
 
+        if ($this->aDataset !== null && $this->dataset_id !== $this->aDataset->getId()) {
+            $this->aDataset = null;
+        }
     } // ensureConsistency
 
     /**
@@ -221,13 +329,13 @@ abstract class BaseCompresion extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = CompresionPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = DatasetValoracionPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -237,8 +345,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
 
         if ($deep) {  // also de-associate any related objects?
 
-            $this->collDatasets = null;
-
+            $this->aDataset = null;
         } // if (deep)
     }
 
@@ -259,16 +366,16 @@ abstract class BaseCompresion extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = CompresionQuery::create()
+            $deleteQuery = DatasetValoracionQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseCompresion:delete:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseDatasetValoracion:delete:pre') as $callable)
             {
               if (call_user_func($callable, $this, $con))
               {
@@ -281,7 +388,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
                 $deleteQuery->delete($con);
                 $this->postDelete($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseCompresion:delete:post') as $callable)
+                foreach (sfMixer::getCallables('BaseDatasetValoracion:delete:post') as $callable)
                 {
                   call_user_func($callable, $this, $con);
                 }
@@ -318,7 +425,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -326,7 +433,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
         try {
             $ret = $this->preSave($con);
             // symfony_behaviors behavior
-            foreach (sfMixer::getCallables('BaseCompresion:save:pre') as $callable)
+            foreach (sfMixer::getCallables('BaseDatasetValoracion:save:pre') as $callable)
             {
               if (is_integer($affectedRows = call_user_func($callable, $this, $con)))
               {
@@ -349,12 +456,12 @@ abstract class BaseCompresion extends BaseObject implements Persistent
                 }
                 $this->postSave($con);
                 // symfony_behaviors behavior
-                foreach (sfMixer::getCallables('BaseCompresion:save:post') as $callable)
+                foreach (sfMixer::getCallables('BaseDatasetValoracion:save:post') as $callable)
                 {
                   call_user_func($callable, $this, $con, $affectedRows);
                 }
 
-                CompresionPeer::addInstanceToPool($this);
+                DatasetValoracionPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -384,6 +491,18 @@ abstract class BaseCompresion extends BaseObject implements Persistent
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
 
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their coresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aDataset !== null) {
+                if ($this->aDataset->isModified() || $this->aDataset->isNew()) {
+                    $affectedRows += $this->aDataset->save($con);
+                }
+                $this->setDataset($this->aDataset);
+            }
+
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
                 if ($this->isNew()) {
@@ -393,24 +512,6 @@ abstract class BaseCompresion extends BaseObject implements Persistent
                 }
                 $affectedRows += 1;
                 $this->resetModified();
-            }
-
-            if ($this->datasetsScheduledForDeletion !== null) {
-                if (!$this->datasetsScheduledForDeletion->isEmpty()) {
-                    foreach ($this->datasetsScheduledForDeletion as $dataset) {
-                        // need to save related object because we set the relation to null
-                        $dataset->save($con);
-                    }
-                    $this->datasetsScheduledForDeletion = null;
-                }
-            }
-
-            if ($this->collDatasets !== null) {
-                foreach ($this->collDatasets as $referrerFK) {
-                    if (!$referrerFK->isDeleted()) {
-                        $affectedRows += $referrerFK->save($con);
-                    }
-                }
             }
 
             $this->alreadyInSave = false;
@@ -433,21 +534,27 @@ abstract class BaseCompresion extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = CompresionPeer::ID;
+        $this->modifiedColumns[] = DatasetValoracionPeer::ID;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . CompresionPeer::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . DatasetValoracionPeer::ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(CompresionPeer::ID)) {
+        if ($this->isColumnModified(DatasetValoracionPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '`ID`';
         }
-        if ($this->isColumnModified(CompresionPeer::COMPRESION)) {
-            $modifiedColumns[':p' . $index++]  = '`COMPRESION`';
+        if ($this->isColumnModified(DatasetValoracionPeer::DATASET_ID)) {
+            $modifiedColumns[':p' . $index++]  = '`DATASET_ID`';
+        }
+        if ($this->isColumnModified(DatasetValoracionPeer::PROMEDIO)) {
+            $modifiedColumns[':p' . $index++]  = '`PROMEDIO`';
+        }
+        if ($this->isColumnModified(DatasetValoracionPeer::NVOTOS)) {
+            $modifiedColumns[':p' . $index++]  = '`NVOTOS`';
         }
 
         $sql = sprintf(
-            'INSERT INTO `compresion` (%s) VALUES (%s)',
+            'INSERT INTO `dataset_valoracion` (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -459,8 +566,14 @@ abstract class BaseCompresion extends BaseObject implements Persistent
                     case '`ID`':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case '`COMPRESION`':
-                        $stmt->bindValue($identifier, $this->compresion, PDO::PARAM_STR);
+                    case '`DATASET_ID`':
+                        $stmt->bindValue($identifier, $this->dataset_id, PDO::PARAM_INT);
+                        break;
+                    case '`PROMEDIO`':
+                        $stmt->bindValue($identifier, $this->promedio, PDO::PARAM_INT);
+                        break;
+                    case '`NVOTOS`':
+                        $stmt->bindValue($identifier, $this->nvotos, PDO::PARAM_INT);
                         break;
                 }
             }
@@ -556,18 +669,22 @@ abstract class BaseCompresion extends BaseObject implements Persistent
             $failureMap = array();
 
 
-            if (($retval = CompresionPeer::doValidate($this, $columns)) !== true) {
-                $failureMap = array_merge($failureMap, $retval);
+            // We call the validate method on the following object(s) if they
+            // were passed to this object by their coresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aDataset !== null) {
+                if (!$this->aDataset->validate($columns)) {
+                    $failureMap = array_merge($failureMap, $this->aDataset->getValidationFailures());
+                }
             }
 
 
-                if ($this->collDatasets !== null) {
-                    foreach ($this->collDatasets as $referrerFK) {
-                        if (!$referrerFK->validate($columns)) {
-                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-                        }
-                    }
-                }
+            if (($retval = DatasetValoracionPeer::doValidate($this, $columns)) !== true) {
+                $failureMap = array_merge($failureMap, $retval);
+            }
+
 
 
             $this->alreadyInValidation = false;
@@ -588,7 +705,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = CompresionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = DatasetValoracionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -608,7 +725,13 @@ abstract class BaseCompresion extends BaseObject implements Persistent
                 return $this->getId();
                 break;
             case 1:
-                return $this->getCompresion();
+                return $this->getDatasetId();
+                break;
+            case 2:
+                return $this->getPromedio();
+                break;
+            case 3:
+                return $this->getNvotos();
                 break;
             default:
                 return null;
@@ -633,18 +756,20 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['Compresion'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['DatasetValoracion'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Compresion'][$this->getPrimaryKey()] = true;
-        $keys = CompresionPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['DatasetValoracion'][$this->getPrimaryKey()] = true;
+        $keys = DatasetValoracionPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getCompresion(),
+            $keys[1] => $this->getDatasetId(),
+            $keys[2] => $this->getPromedio(),
+            $keys[3] => $this->getNvotos(),
         );
         if ($includeForeignObjects) {
-            if (null !== $this->collDatasets) {
-                $result['Datasets'] = $this->collDatasets->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            if (null !== $this->aDataset) {
+                $result['Dataset'] = $this->aDataset->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
             }
         }
 
@@ -664,7 +789,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = CompresionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = DatasetValoracionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -684,7 +809,13 @@ abstract class BaseCompresion extends BaseObject implements Persistent
                 $this->setId($value);
                 break;
             case 1:
-                $this->setCompresion($value);
+                $this->setDatasetId($value);
+                break;
+            case 2:
+                $this->setPromedio($value);
+                break;
+            case 3:
+                $this->setNvotos($value);
                 break;
         } // switch()
     }
@@ -708,10 +839,12 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = CompresionPeer::getFieldNames($keyType);
+        $keys = DatasetValoracionPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setCompresion($arr[$keys[1]]);
+        if (array_key_exists($keys[1], $arr)) $this->setDatasetId($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setPromedio($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setNvotos($arr[$keys[3]]);
     }
 
     /**
@@ -721,10 +854,12 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(CompresionPeer::DATABASE_NAME);
+        $criteria = new Criteria(DatasetValoracionPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(CompresionPeer::ID)) $criteria->add(CompresionPeer::ID, $this->id);
-        if ($this->isColumnModified(CompresionPeer::COMPRESION)) $criteria->add(CompresionPeer::COMPRESION, $this->compresion);
+        if ($this->isColumnModified(DatasetValoracionPeer::ID)) $criteria->add(DatasetValoracionPeer::ID, $this->id);
+        if ($this->isColumnModified(DatasetValoracionPeer::DATASET_ID)) $criteria->add(DatasetValoracionPeer::DATASET_ID, $this->dataset_id);
+        if ($this->isColumnModified(DatasetValoracionPeer::PROMEDIO)) $criteria->add(DatasetValoracionPeer::PROMEDIO, $this->promedio);
+        if ($this->isColumnModified(DatasetValoracionPeer::NVOTOS)) $criteria->add(DatasetValoracionPeer::NVOTOS, $this->nvotos);
 
         return $criteria;
     }
@@ -739,8 +874,8 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(CompresionPeer::DATABASE_NAME);
-        $criteria->add(CompresionPeer::ID, $this->id);
+        $criteria = new Criteria(DatasetValoracionPeer::DATABASE_NAME);
+        $criteria->add(DatasetValoracionPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -781,14 +916,16 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of Compresion (or compatible) type.
+     * @param object $copyObj An object of DatasetValoracion (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setCompresion($this->getCompresion());
+        $copyObj->setDatasetId($this->getDatasetId());
+        $copyObj->setPromedio($this->getPromedio());
+        $copyObj->setNvotos($this->getNvotos());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -796,12 +933,6 @@ abstract class BaseCompresion extends BaseObject implements Persistent
             $copyObj->setNew(false);
             // store object hash to prevent cycle
             $this->startCopy = true;
-
-            foreach ($this->getDatasets() as $relObj) {
-                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-                    $copyObj->addDataset($relObj->copy($deepCopy));
-                }
-            }
 
             //unflag object copy
             $this->startCopy = false;
@@ -822,7 +953,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return Compresion Clone of current object.
+     * @return DatasetValoracion Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -842,263 +973,66 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return CompresionPeer
+     * @return DatasetValoracionPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new CompresionPeer();
+            self::$peer = new DatasetValoracionPeer();
         }
 
         return self::$peer;
     }
 
-
     /**
-     * Initializes a collection based on the name of a relation.
-     * Avoids crafting an 'init[$relationName]s' method name
-     * that wouldn't work when StandardEnglishPluralizer is used.
+     * Declares an association between this object and a Dataset object.
      *
-     * @param string $relationName The name of the relation to initialize
-     * @return void
-     */
-    public function initRelation($relationName)
-    {
-        if ('Dataset' == $relationName) {
-            $this->initDatasets();
-        }
-    }
-
-    /**
-     * Clears out the collDatasets collection
-     *
-     * This does not modify the database; however, it will remove any associated objects, causing
-     * them to be refetched by subsequent calls to accessor method.
-     *
-     * @return void
-     * @see        addDatasets()
-     */
-    public function clearDatasets()
-    {
-        $this->collDatasets = null; // important to set this to null since that means it is uninitialized
-        $this->collDatasetsPartial = null;
-    }
-
-    /**
-     * reset is the collDatasets collection loaded partially
-     *
-     * @return void
-     */
-    public function resetPartialDatasets($v = true)
-    {
-        $this->collDatasetsPartial = $v;
-    }
-
-    /**
-     * Initializes the collDatasets collection.
-     *
-     * By default this just sets the collDatasets collection to an empty array (like clearcollDatasets());
-     * however, you may wish to override this method in your stub class to provide setting appropriate
-     * to your application -- for example, setting the initial array to the values stored in database.
-     *
-     * @param boolean $overrideExisting If set to true, the method call initializes
-     *                                        the collection even if it is not empty
-     *
-     * @return void
-     */
-    public function initDatasets($overrideExisting = true)
-    {
-        if (null !== $this->collDatasets && !$overrideExisting) {
-            return;
-        }
-        $this->collDatasets = new PropelObjectCollection();
-        $this->collDatasets->setModel('Dataset');
-    }
-
-    /**
-     * Gets an array of Dataset objects which contain a foreign key that references this object.
-     *
-     * If the $criteria is not null, it is used to always fetch the results from the database.
-     * Otherwise the results are fetched from the database the first time, then cached.
-     * Next time the same method is called without $criteria, the cached collection is returned.
-     * If this Compresion is new, it will return
-     * an empty collection or the current collection; the criteria is ignored on a new object.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @return PropelObjectCollection|Dataset[] List of Dataset objects
+     * @param             Dataset $v
+     * @return DatasetValoracion The current object (for fluent API support)
      * @throws PropelException
      */
-    public function getDatasets($criteria = null, PropelPDO $con = null)
+    public function setDataset(Dataset $v = null)
     {
-        $partial = $this->collDatasetsPartial && !$this->isNew();
-        if (null === $this->collDatasets || null !== $criteria  || $partial) {
-            if ($this->isNew() && null === $this->collDatasets) {
-                // return empty collection
-                $this->initDatasets();
-            } else {
-                $collDatasets = DatasetQuery::create(null, $criteria)
-                    ->filterByCompresion($this)
-                    ->find($con);
-                if (null !== $criteria) {
-                    if (false !== $this->collDatasetsPartial && count($collDatasets)) {
-                      $this->initDatasets(false);
-
-                      foreach($collDatasets as $obj) {
-                        if (false == $this->collDatasets->contains($obj)) {
-                          $this->collDatasets->append($obj);
-                        }
-                      }
-
-                      $this->collDatasetsPartial = true;
-                    }
-
-                    return $collDatasets;
-                }
-
-                if($partial && $this->collDatasets) {
-                    foreach($this->collDatasets as $obj) {
-                        if($obj->isNew()) {
-                            $collDatasets[] = $obj;
-                        }
-                    }
-                }
-
-                $this->collDatasets = $collDatasets;
-                $this->collDatasetsPartial = false;
-            }
-        }
-
-        return $this->collDatasets;
-    }
-
-    /**
-     * Sets a collection of Dataset objects related by a one-to-many relationship
-     * to the current object.
-     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
-     * and new objects from the given Propel collection.
-     *
-     * @param PropelCollection $datasets A Propel collection.
-     * @param PropelPDO $con Optional connection object
-     */
-    public function setDatasets(PropelCollection $datasets, PropelPDO $con = null)
-    {
-        $this->datasetsScheduledForDeletion = $this->getDatasets(new Criteria(), $con)->diff($datasets);
-
-        foreach ($this->datasetsScheduledForDeletion as $datasetRemoved) {
-            $datasetRemoved->setCompresion(null);
-        }
-
-        $this->collDatasets = null;
-        foreach ($datasets as $dataset) {
-            $this->addDataset($dataset);
-        }
-
-        $this->collDatasets = $datasets;
-        $this->collDatasetsPartial = false;
-    }
-
-    /**
-     * Returns the number of related Dataset objects.
-     *
-     * @param Criteria $criteria
-     * @param boolean $distinct
-     * @param PropelPDO $con
-     * @return int             Count of related Dataset objects.
-     * @throws PropelException
-     */
-    public function countDatasets(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-    {
-        $partial = $this->collDatasetsPartial && !$this->isNew();
-        if (null === $this->collDatasets || null !== $criteria || $partial) {
-            if ($this->isNew() && null === $this->collDatasets) {
-                return 0;
-            } else {
-                if($partial && !$criteria) {
-                    return count($this->getDatasets());
-                }
-                $query = DatasetQuery::create(null, $criteria);
-                if ($distinct) {
-                    $query->distinct();
-                }
-
-                return $query
-                    ->filterByCompresion($this)
-                    ->count($con);
-            }
+        if ($v === null) {
+            $this->setDatasetId(NULL);
         } else {
-            return count($this->collDatasets);
+            $this->setDatasetId($v->getId());
         }
-    }
 
-    /**
-     * Method called to associate a Dataset object to this object
-     * through the Dataset foreign key attribute.
-     *
-     * @param    Dataset $l Dataset
-     * @return Compresion The current object (for fluent API support)
-     */
-    public function addDataset(Dataset $l)
-    {
-        if ($this->collDatasets === null) {
-            $this->initDatasets();
-            $this->collDatasetsPartial = true;
+        $this->aDataset = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the Dataset object, it will not be re-added.
+        if ($v !== null) {
+            $v->addDatasetValoracion($this);
         }
-        if (!$this->collDatasets->contains($l)) { // only add it if the **same** object is not already associated
-            $this->doAddDataset($l);
-        }
+
 
         return $this;
     }
 
-    /**
-     * @param	Dataset $dataset The dataset object to add.
-     */
-    protected function doAddDataset($dataset)
-    {
-        $this->collDatasets[]= $dataset;
-        $dataset->setCompresion($this);
-    }
 
     /**
-     * @param	Dataset $dataset The dataset object to remove.
+     * Get the associated Dataset object
+     *
+     * @param PropelPDO $con Optional Connection object.
+     * @return Dataset The associated Dataset object.
+     * @throws PropelException
      */
-    public function removeDataset($dataset)
+    public function getDataset(PropelPDO $con = null)
     {
-        if ($this->getDatasets()->contains($dataset)) {
-            $this->collDatasets->remove($this->collDatasets->search($dataset));
-            if (null === $this->datasetsScheduledForDeletion) {
-                $this->datasetsScheduledForDeletion = clone $this->collDatasets;
-                $this->datasetsScheduledForDeletion->clear();
-            }
-            $this->datasetsScheduledForDeletion[]= $dataset;
-            $dataset->setCompresion(null);
+        if ($this->aDataset === null && ($this->dataset_id !== null)) {
+            $this->aDataset = DatasetQuery::create()->findPk($this->dataset_id, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aDataset->addDatasetValoracions($this);
+             */
         }
-    }
 
-
-    /**
-     * If this collection has already been initialized with
-     * an identical criteria, it returns the collection.
-     * Otherwise if this Compresion is new, it will return
-     * an empty collection; or if this Compresion has previously
-     * been saved, it will retrieve related Datasets from storage.
-     *
-     * This method is protected by default in order to keep the public
-     * api reasonable.  You can provide public methods for those you
-     * actually need in Compresion.
-     *
-     * @param Criteria $criteria optional Criteria object to narrow the query
-     * @param PropelPDO $con optional connection object
-     * @param string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-     * @return PropelObjectCollection|Dataset[] List of Dataset objects
-     */
-    public function getDatasetsJoinFormato($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-    {
-        $query = DatasetQuery::create(null, $criteria);
-        $query->joinWith('Formato', $join_behavior);
-
-        return $this->getDatasets($query, $con);
+        return $this->aDataset;
     }
 
     /**
@@ -1107,10 +1041,13 @@ abstract class BaseCompresion extends BaseObject implements Persistent
     public function clear()
     {
         $this->id = null;
-        $this->compresion = null;
+        $this->dataset_id = null;
+        $this->promedio = null;
+        $this->nvotos = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->clearAllReferences();
+        $this->applyDefaultValues();
         $this->resetModified();
         $this->setNew(true);
         $this->setDeleted(false);
@@ -1128,17 +1065,9 @@ abstract class BaseCompresion extends BaseObject implements Persistent
     public function clearAllReferences($deep = false)
     {
         if ($deep) {
-            if ($this->collDatasets) {
-                foreach ($this->collDatasets as $o) {
-                    $o->clearAllReferences($deep);
-                }
-            }
         } // if ($deep)
 
-        if ($this->collDatasets instanceof PropelCollection) {
-            $this->collDatasets->clearIterator();
-        }
-        $this->collDatasets = null;
+        $this->aDataset = null;
     }
 
     /**
@@ -1148,7 +1077,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(CompresionPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(DatasetValoracionPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**
@@ -1168,7 +1097,7 @@ abstract class BaseCompresion extends BaseObject implements Persistent
     {
 
         // symfony_behaviors behavior
-        if ($callable = sfMixer::getCallable('BaseCompresion:' . $name))
+        if ($callable = sfMixer::getCallable('BaseDatasetValoracion:' . $name))
         {
           array_unshift($params, $this);
           return call_user_func_array($callable, $params);

@@ -2,7 +2,7 @@
 
 
 /**
- * Base static class for performing query and update operations on the 'compresion' table.
+ * Base static class for performing query and update operations on the 'dataset_valoracion' table.
  *
  *
  *
@@ -12,44 +12,50 @@
  *
  * @package propel.generator.lib.model.om
  */
-abstract class BaseCompresionPeer
+abstract class BaseDatasetValoracionPeer
 {
 
     /** the default database name for this class */
     const DATABASE_NAME = 'propel';
 
     /** the table name for this class */
-    const TABLE_NAME = 'compresion';
+    const TABLE_NAME = 'dataset_valoracion';
 
     /** the related Propel class for this table */
-    const OM_CLASS = 'Compresion';
+    const OM_CLASS = 'DatasetValoracion';
 
     /** the related TableMap class for this table */
-    const TM_CLASS = 'CompresionTableMap';
+    const TM_CLASS = 'DatasetValoracionTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 2;
+    const NUM_COLUMNS = 4;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 2;
+    const NUM_HYDRATE_COLUMNS = 4;
 
     /** the column name for the ID field */
-    const ID = 'compresion.ID';
+    const ID = 'dataset_valoracion.ID';
 
-    /** the column name for the COMPRESION field */
-    const COMPRESION = 'compresion.COMPRESION';
+    /** the column name for the DATASET_ID field */
+    const DATASET_ID = 'dataset_valoracion.DATASET_ID';
+
+    /** the column name for the PROMEDIO field */
+    const PROMEDIO = 'dataset_valoracion.PROMEDIO';
+
+    /** the column name for the NVOTOS field */
+    const NVOTOS = 'dataset_valoracion.NVOTOS';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
 
     /**
-     * An identiy map to hold any loaded instances of Compresion objects.
+     * An identiy map to hold any loaded instances of DatasetValoracion objects.
      * This must be public so that other peer classes can access this when hydrating from JOIN
      * queries.
-     * @var        array Compresion[]
+     * @var        array DatasetValoracion[]
      */
     public static $instances = array();
 
@@ -58,30 +64,30 @@ abstract class BaseCompresionPeer
      * holds an array of fieldnames
      *
      * first dimension keys are the type constants
-     * e.g. CompresionPeer::$fieldNames[CompresionPeer::TYPE_PHPNAME][0] = 'Id'
+     * e.g. DatasetValoracionPeer::$fieldNames[DatasetValoracionPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'Compresion', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'compresion', ),
-        BasePeer::TYPE_COLNAME => array (CompresionPeer::ID, CompresionPeer::COMPRESION, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'COMPRESION', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'compresion', ),
-        BasePeer::TYPE_NUM => array (0, 1, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'DatasetId', 'Promedio', 'Nvotos', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'datasetId', 'promedio', 'nvotos', ),
+        BasePeer::TYPE_COLNAME => array (DatasetValoracionPeer::ID, DatasetValoracionPeer::DATASET_ID, DatasetValoracionPeer::PROMEDIO, DatasetValoracionPeer::NVOTOS, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'DATASET_ID', 'PROMEDIO', 'NVOTOS', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'dataset_id', 'promedio', 'nvotos', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
     /**
      * holds an array of keys for quick access to the fieldnames array
      *
      * first dimension keys are the type constants
-     * e.g. CompresionPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
+     * e.g. DatasetValoracionPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Compresion' => 1, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'compresion' => 1, ),
-        BasePeer::TYPE_COLNAME => array (CompresionPeer::ID => 0, CompresionPeer::COMPRESION => 1, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'COMPRESION' => 1, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'compresion' => 1, ),
-        BasePeer::TYPE_NUM => array (0, 1, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'DatasetId' => 1, 'Promedio' => 2, 'Nvotos' => 3, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'datasetId' => 1, 'promedio' => 2, 'nvotos' => 3, ),
+        BasePeer::TYPE_COLNAME => array (DatasetValoracionPeer::ID => 0, DatasetValoracionPeer::DATASET_ID => 1, DatasetValoracionPeer::PROMEDIO => 2, DatasetValoracionPeer::NVOTOS => 3, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'DATASET_ID' => 1, 'PROMEDIO' => 2, 'NVOTOS' => 3, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'dataset_id' => 1, 'promedio' => 2, 'nvotos' => 3, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
     );
 
     /**
@@ -96,10 +102,10 @@ abstract class BaseCompresionPeer
      */
     public static function translateFieldName($name, $fromType, $toType)
     {
-        $toNames = CompresionPeer::getFieldNames($toType);
-        $key = isset(CompresionPeer::$fieldKeys[$fromType][$name]) ? CompresionPeer::$fieldKeys[$fromType][$name] : null;
+        $toNames = DatasetValoracionPeer::getFieldNames($toType);
+        $key = isset(DatasetValoracionPeer::$fieldKeys[$fromType][$name]) ? DatasetValoracionPeer::$fieldKeys[$fromType][$name] : null;
         if ($key === null) {
-            throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(CompresionPeer::$fieldKeys[$fromType], true));
+            throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(DatasetValoracionPeer::$fieldKeys[$fromType], true));
         }
 
         return $toNames[$key];
@@ -116,11 +122,11 @@ abstract class BaseCompresionPeer
      */
     public static function getFieldNames($type = BasePeer::TYPE_PHPNAME)
     {
-        if (!array_key_exists($type, CompresionPeer::$fieldNames)) {
+        if (!array_key_exists($type, DatasetValoracionPeer::$fieldNames)) {
             throw new PropelException('Method getFieldNames() expects the parameter $type to be one of the class constants BasePeer::TYPE_PHPNAME, BasePeer::TYPE_STUDLYPHPNAME, BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM. ' . $type . ' was given.');
         }
 
-        return CompresionPeer::$fieldNames[$type];
+        return DatasetValoracionPeer::$fieldNames[$type];
     }
 
     /**
@@ -132,12 +138,12 @@ abstract class BaseCompresionPeer
      *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
      * </code>
      * @param      string $alias The alias for the current table.
-     * @param      string $column The column name for current table. (i.e. CompresionPeer::COLUMN_NAME).
+     * @param      string $column The column name for current table. (i.e. DatasetValoracionPeer::COLUMN_NAME).
      * @return string
      */
     public static function alias($alias, $column)
     {
-        return str_replace(CompresionPeer::TABLE_NAME.'.', $alias.'.', $column);
+        return str_replace(DatasetValoracionPeer::TABLE_NAME.'.', $alias.'.', $column);
     }
 
     /**
@@ -155,11 +161,15 @@ abstract class BaseCompresionPeer
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(CompresionPeer::ID);
-            $criteria->addSelectColumn(CompresionPeer::COMPRESION);
+            $criteria->addSelectColumn(DatasetValoracionPeer::ID);
+            $criteria->addSelectColumn(DatasetValoracionPeer::DATASET_ID);
+            $criteria->addSelectColumn(DatasetValoracionPeer::PROMEDIO);
+            $criteria->addSelectColumn(DatasetValoracionPeer::NVOTOS);
         } else {
             $criteria->addSelectColumn($alias . '.ID');
-            $criteria->addSelectColumn($alias . '.COMPRESION');
+            $criteria->addSelectColumn($alias . '.DATASET_ID');
+            $criteria->addSelectColumn($alias . '.PROMEDIO');
+            $criteria->addSelectColumn($alias . '.NVOTOS');
         }
     }
 
@@ -179,26 +189,26 @@ abstract class BaseCompresionPeer
         // We need to set the primary table name, since in the case that there are no WHERE columns
         // it will be impossible for the BasePeer::createSelectSql() method to determine which
         // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(CompresionPeer::TABLE_NAME);
+        $criteria->setPrimaryTableName(DatasetValoracionPeer::TABLE_NAME);
 
         if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
             $criteria->setDistinct();
         }
 
         if (!$criteria->hasSelectClause()) {
-            CompresionPeer::addSelectColumns($criteria);
+            DatasetValoracionPeer::addSelectColumns($criteria);
         }
 
         $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-        $criteria->setDbName(CompresionPeer::DATABASE_NAME); // Set the correct dbName
+        $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME); // Set the correct dbName
 
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
         // symfony_behaviors behavior
         foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
         {
-          call_user_func($sf_hook, 'BaseCompresionPeer', $criteria, $con);
+          call_user_func($sf_hook, 'BaseDatasetValoracionPeer', $criteria, $con);
         }
 
         // BasePeer returns a PDOStatement
@@ -218,7 +228,7 @@ abstract class BaseCompresionPeer
      *
      * @param      Criteria $criteria object used to create the SELECT statement.
      * @param      PropelPDO $con
-     * @return                 Compresion
+     * @return                 DatasetValoracion
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
@@ -226,7 +236,7 @@ abstract class BaseCompresionPeer
     {
         $critcopy = clone $criteria;
         $critcopy->setLimit(1);
-        $objects = CompresionPeer::doSelect($critcopy, $con);
+        $objects = DatasetValoracionPeer::doSelect($critcopy, $con);
         if ($objects) {
             return $objects[0];
         }
@@ -244,7 +254,7 @@ abstract class BaseCompresionPeer
      */
     public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
-        return CompresionPeer::populateObjects(CompresionPeer::doSelectStmt($criteria, $con));
+        return DatasetValoracionPeer::populateObjects(DatasetValoracionPeer::doSelectStmt($criteria, $con));
     }
     /**
      * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -262,20 +272,20 @@ abstract class BaseCompresionPeer
     public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         if (!$criteria->hasSelectClause()) {
             $criteria = clone $criteria;
-            CompresionPeer::addSelectColumns($criteria);
+            DatasetValoracionPeer::addSelectColumns($criteria);
         }
 
         // Set the correct dbName
-        $criteria->setDbName(CompresionPeer::DATABASE_NAME);
+        $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME);
         // symfony_behaviors behavior
         foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
         {
-          call_user_func($sf_hook, 'BaseCompresionPeer', $criteria, $con);
+          call_user_func($sf_hook, 'BaseDatasetValoracionPeer', $criteria, $con);
         }
 
 
@@ -291,7 +301,7 @@ abstract class BaseCompresionPeer
      * to the cache in order to ensure that the same objects are always returned by doSelect*()
      * and retrieveByPK*() calls.
      *
-     * @param      Compresion $obj A Compresion object.
+     * @param      DatasetValoracion $obj A DatasetValoracion object.
      * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
      */
     public static function addInstanceToPool($obj, $key = null)
@@ -300,7 +310,7 @@ abstract class BaseCompresionPeer
             if ($key === null) {
                 $key = (string) $obj->getId();
             } // if key === null
-            CompresionPeer::$instances[$key] = $obj;
+            DatasetValoracionPeer::$instances[$key] = $obj;
         }
     }
 
@@ -312,7 +322,7 @@ abstract class BaseCompresionPeer
      * methods in your stub classes -- you may need to explicitly remove objects
      * from the cache in order to prevent returning objects that no longer exist.
      *
-     * @param      mixed $value A Compresion object or a primary key value.
+     * @param      mixed $value A DatasetValoracion object or a primary key value.
      *
      * @return void
      * @throws PropelException - if the value is invalid.
@@ -320,17 +330,17 @@ abstract class BaseCompresionPeer
     public static function removeInstanceFromPool($value)
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
-            if (is_object($value) && $value instanceof Compresion) {
+            if (is_object($value) && $value instanceof DatasetValoracion) {
                 $key = (string) $value->getId();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
             } else {
-                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Compresion object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or DatasetValoracion object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
                 throw $e;
             }
 
-            unset(CompresionPeer::$instances[$key]);
+            unset(DatasetValoracionPeer::$instances[$key]);
         }
     } // removeInstanceFromPool()
 
@@ -341,14 +351,14 @@ abstract class BaseCompresionPeer
      * a multi-column primary key, a serialize()d version of the primary key will be returned.
      *
      * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-     * @return   Compresion Found object or null if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+     * @return   DatasetValoracion Found object or null if 1) no instance exists for specified key or 2) instance pooling has been disabled.
      * @see        getPrimaryKeyHash()
      */
     public static function getInstanceFromPool($key)
     {
         if (Propel::isInstancePoolingEnabled()) {
-            if (isset(CompresionPeer::$instances[$key])) {
-                return CompresionPeer::$instances[$key];
+            if (isset(DatasetValoracionPeer::$instances[$key])) {
+                return DatasetValoracionPeer::$instances[$key];
             }
         }
 
@@ -362,11 +372,11 @@ abstract class BaseCompresionPeer
      */
     public static function clearInstancePool()
     {
-        CompresionPeer::$instances = array();
+        DatasetValoracionPeer::$instances = array();
     }
 
     /**
-     * Method to invalidate the instance pool of all tables related to compresion
+     * Method to invalidate the instance pool of all tables related to dataset_valoracion
      * by a foreign key with ON DELETE CASCADE
      */
     public static function clearRelatedInstancePool()
@@ -420,11 +430,11 @@ abstract class BaseCompresionPeer
         $results = array();
 
         // set the class once to avoid overhead in the loop
-        $cls = CompresionPeer::getOMClass();
+        $cls = DatasetValoracionPeer::getOMClass();
         // populate the object(s)
         while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key = CompresionPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj = CompresionPeer::getInstanceFromPool($key))) {
+            $key = DatasetValoracionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj = DatasetValoracionPeer::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
@@ -433,7 +443,7 @@ abstract class BaseCompresionPeer
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                CompresionPeer::addInstanceToPool($obj, $key);
+                DatasetValoracionPeer::addInstanceToPool($obj, $key);
             } // if key exists
         }
         $stmt->closeCursor();
@@ -447,24 +457,286 @@ abstract class BaseCompresionPeer
      * @param      int $startcol The 0-based offset for reading from the resultset row.
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
-     * @return array (Compresion object, last column rank)
+     * @return array (DatasetValoracion object, last column rank)
      */
     public static function populateObject($row, $startcol = 0)
     {
-        $key = CompresionPeer::getPrimaryKeyHashFromRow($row, $startcol);
-        if (null !== ($obj = CompresionPeer::getInstanceFromPool($key))) {
+        $key = DatasetValoracionPeer::getPrimaryKeyHashFromRow($row, $startcol);
+        if (null !== ($obj = DatasetValoracionPeer::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $startcol, true); // rehydrate
-            $col = $startcol + CompresionPeer::NUM_HYDRATE_COLUMNS;
+            $col = $startcol + DatasetValoracionPeer::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = CompresionPeer::OM_CLASS;
+            $cls = DatasetValoracionPeer::OM_CLASS;
             $obj = new $cls();
             $col = $obj->hydrate($row, $startcol);
-            CompresionPeer::addInstanceToPool($obj, $key);
+            DatasetValoracionPeer::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining the related Dataset table
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinDataset(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(DatasetValoracionPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            DatasetValoracionPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
+
+        // Set the correct dbName
+        $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $criteria->addJoin(DatasetValoracionPeer::DATASET_ID, DatasetPeer::ID, $join_behavior);
+
+        // symfony_behaviors behavior
+        foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+        {
+          call_user_func($sf_hook, 'BaseDatasetValoracionPeer', $criteria, $con);
+        }
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+
+    /**
+     * Selects a collection of DatasetValoracion objects pre-filled with their Dataset objects.
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of DatasetValoracion objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinDataset(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME);
+        }
+
+        DatasetValoracionPeer::addSelectColumns($criteria);
+        $startcol = DatasetValoracionPeer::NUM_HYDRATE_COLUMNS;
+        DatasetPeer::addSelectColumns($criteria);
+
+        $criteria->addJoin(DatasetValoracionPeer::DATASET_ID, DatasetPeer::ID, $join_behavior);
+
+        // symfony_behaviors behavior
+        foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+        {
+          call_user_func($sf_hook, 'BaseDatasetValoracionPeer', $criteria, $con);
+        }
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = DatasetValoracionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = DatasetValoracionPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+
+                $cls = DatasetValoracionPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                DatasetValoracionPeer::addInstanceToPool($obj1, $key1);
+            } // if $obj1 already loaded
+
+            $key2 = DatasetPeer::getPrimaryKeyHashFromRow($row, $startcol);
+            if ($key2 !== null) {
+                $obj2 = DatasetPeer::getInstanceFromPool($key2);
+                if (!$obj2) {
+
+                    $cls = DatasetPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol);
+                    DatasetPeer::addInstanceToPool($obj2, $key2);
+                } // if obj2 already loaded
+
+                // Add the $obj1 (DatasetValoracion) to $obj2 (Dataset)
+                $obj2->addDatasetValoracion($obj1);
+
+            } // if joined row was not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
+    }
+
+
+    /**
+     * Returns the number of rows matching criteria, joining all related tables
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return int Number of matching rows.
+     */
+    public static function doCountJoinAll(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        // we're going to modify criteria, so copy it first
+        $criteria = clone $criteria;
+
+        // We need to set the primary table name, since in the case that there are no WHERE columns
+        // it will be impossible for the BasePeer::createSelectSql() method to determine which
+        // tables go into the FROM clause.
+        $criteria->setPrimaryTableName(DatasetValoracionPeer::TABLE_NAME);
+
+        if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
+            $criteria->setDistinct();
+        }
+
+        if (!$criteria->hasSelectClause()) {
+            DatasetValoracionPeer::addSelectColumns($criteria);
+        }
+
+        $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
+
+        // Set the correct dbName
+        $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME);
+
+        if ($con === null) {
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+        }
+
+        $criteria->addJoin(DatasetValoracionPeer::DATASET_ID, DatasetPeer::ID, $join_behavior);
+
+        // symfony_behaviors behavior
+        foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+        {
+          call_user_func($sf_hook, 'BaseDatasetValoracionPeer', $criteria, $con);
+        }
+
+        $stmt = BasePeer::doCount($criteria, $con);
+
+        if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $count = (int) $row[0];
+        } else {
+            $count = 0; // no rows returned; we infer that means 0 matches.
+        }
+        $stmt->closeCursor();
+
+        return $count;
+    }
+
+    /**
+     * Selects a collection of DatasetValoracion objects pre-filled with all related objects.
+     *
+     * @param      Criteria  $criteria
+     * @param      PropelPDO $con
+     * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
+     * @return array           Array of DatasetValoracion objects.
+     * @throws PropelException Any exceptions caught during processing will be
+     *		 rethrown wrapped into a PropelException.
+     */
+    public static function doSelectJoinAll(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+    {
+        $criteria = clone $criteria;
+
+        // Set the correct dbName if it has not been overridden
+        if ($criteria->getDbName() == Propel::getDefaultDB()) {
+            $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME);
+        }
+
+        DatasetValoracionPeer::addSelectColumns($criteria);
+        $startcol2 = DatasetValoracionPeer::NUM_HYDRATE_COLUMNS;
+
+        DatasetPeer::addSelectColumns($criteria);
+        $startcol3 = $startcol2 + DatasetPeer::NUM_HYDRATE_COLUMNS;
+
+        $criteria->addJoin(DatasetValoracionPeer::DATASET_ID, DatasetPeer::ID, $join_behavior);
+
+        // symfony_behaviors behavior
+        foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
+        {
+          call_user_func($sf_hook, 'BaseDatasetValoracionPeer', $criteria, $con);
+        }
+
+        $stmt = BasePeer::doSelect($criteria, $con);
+        $results = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+            $key1 = DatasetValoracionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = DatasetValoracionPeer::getInstanceFromPool($key1))) {
+                // We no longer rehydrate the object, since this can cause data loss.
+                // See http://www.propelorm.org/ticket/509
+                // $obj1->hydrate($row, 0, true); // rehydrate
+            } else {
+                $cls = DatasetValoracionPeer::getOMClass();
+
+                $obj1 = new $cls();
+                $obj1->hydrate($row);
+                DatasetValoracionPeer::addInstanceToPool($obj1, $key1);
+            } // if obj1 already loaded
+
+            // Add objects for joined Dataset rows
+
+            $key2 = DatasetPeer::getPrimaryKeyHashFromRow($row, $startcol2);
+            if ($key2 !== null) {
+                $obj2 = DatasetPeer::getInstanceFromPool($key2);
+                if (!$obj2) {
+
+                    $cls = DatasetPeer::getOMClass();
+
+                    $obj2 = new $cls();
+                    $obj2->hydrate($row, $startcol2);
+                    DatasetPeer::addInstanceToPool($obj2, $key2);
+                } // if obj2 loaded
+
+                // Add the $obj1 (DatasetValoracion) to the collection in $obj2 (Dataset)
+                $obj2->addDatasetValoracion($obj1);
+            } // if joined row not null
+
+            $results[] = $obj1;
+        }
+        $stmt->closeCursor();
+
+        return $results;
     }
 
     /**
@@ -476,7 +748,7 @@ abstract class BaseCompresionPeer
      */
     public static function getTableMap()
     {
-        return Propel::getDatabaseMap(CompresionPeer::DATABASE_NAME)->getTable(CompresionPeer::TABLE_NAME);
+        return Propel::getDatabaseMap(DatasetValoracionPeer::DATABASE_NAME)->getTable(DatasetValoracionPeer::TABLE_NAME);
     }
 
     /**
@@ -484,9 +756,9 @@ abstract class BaseCompresionPeer
      */
     public static function buildTableMap()
     {
-      $dbMap = Propel::getDatabaseMap(BaseCompresionPeer::DATABASE_NAME);
-      if (!$dbMap->hasTable(BaseCompresionPeer::TABLE_NAME)) {
-        $dbMap->addTableObject(new CompresionTableMap());
+      $dbMap = Propel::getDatabaseMap(BaseDatasetValoracionPeer::DATABASE_NAME);
+      if (!$dbMap->hasTable(BaseDatasetValoracionPeer::TABLE_NAME)) {
+        $dbMap->addTableObject(new DatasetValoracionTableMap());
       }
     }
 
@@ -498,13 +770,13 @@ abstract class BaseCompresionPeer
      */
     public static function getOMClass()
     {
-        return CompresionPeer::OM_CLASS;
+        return DatasetValoracionPeer::OM_CLASS;
     }
 
     /**
-     * Performs an INSERT on the database, given a Compresion or Criteria object.
+     * Performs an INSERT on the database, given a DatasetValoracion or Criteria object.
      *
-     * @param      mixed $values Criteria or Compresion object containing data that is used to create the INSERT statement.
+     * @param      mixed $values Criteria or DatasetValoracion object containing data that is used to create the INSERT statement.
      * @param      PropelPDO $con the PropelPDO connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -513,22 +785,22 @@ abstract class BaseCompresionPeer
     public static function doInsert($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
         } else {
-            $criteria = $values->buildCriteria(); // build Criteria from Compresion object
+            $criteria = $values->buildCriteria(); // build Criteria from DatasetValoracion object
         }
 
-        if ($criteria->containsKey(CompresionPeer::ID) && $criteria->keyContainsValue(CompresionPeer::ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.CompresionPeer::ID.')');
+        if ($criteria->containsKey(DatasetValoracionPeer::ID) && $criteria->keyContainsValue(DatasetValoracionPeer::ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.DatasetValoracionPeer::ID.')');
         }
 
 
         // Set the correct dbName
-        $criteria->setDbName(CompresionPeer::DATABASE_NAME);
+        $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME);
 
         try {
             // use transaction because $criteria could contain info
@@ -545,9 +817,9 @@ abstract class BaseCompresionPeer
     }
 
     /**
-     * Performs an UPDATE on the database, given a Compresion or Criteria object.
+     * Performs an UPDATE on the database, given a DatasetValoracion or Criteria object.
      *
-     * @param      mixed $values Criteria or Compresion object containing data that is used to create the UPDATE statement.
+     * @param      mixed $values Criteria or DatasetValoracion object containing data that is used to create the UPDATE statement.
      * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
      * @return int             The number of affected rows (if supported by underlying database driver).
      * @throws PropelException Any exceptions caught during processing will be
@@ -556,35 +828,35 @@ abstract class BaseCompresionPeer
     public static function doUpdate($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
-        $selectCriteria = new Criteria(CompresionPeer::DATABASE_NAME);
+        $selectCriteria = new Criteria(DatasetValoracionPeer::DATABASE_NAME);
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(CompresionPeer::ID);
-            $value = $criteria->remove(CompresionPeer::ID);
+            $comparison = $criteria->getComparison(DatasetValoracionPeer::ID);
+            $value = $criteria->remove(DatasetValoracionPeer::ID);
             if ($value) {
-                $selectCriteria->add(CompresionPeer::ID, $value, $comparison);
+                $selectCriteria->add(DatasetValoracionPeer::ID, $value, $comparison);
             } else {
-                $selectCriteria->setPrimaryTableName(CompresionPeer::TABLE_NAME);
+                $selectCriteria->setPrimaryTableName(DatasetValoracionPeer::TABLE_NAME);
             }
 
-        } else { // $values is Compresion object
+        } else { // $values is DatasetValoracion object
             $criteria = $values->buildCriteria(); // gets full criteria
             $selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
         }
 
         // set the correct dbName
-        $criteria->setDbName(CompresionPeer::DATABASE_NAME);
+        $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME);
 
         return BasePeer::doUpdate($selectCriteria, $criteria, $con);
     }
 
     /**
-     * Deletes all rows from the compresion table.
+     * Deletes all rows from the dataset_valoracion table.
      *
      * @param      PropelPDO $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).
@@ -593,19 +865,19 @@ abstract class BaseCompresionPeer
     public static function doDeleteAll(PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
         $affectedRows = 0; // initialize var to track total num of affected rows
         try {
             // use transaction because $criteria could contain info
             // for more than one table or we could emulating ON DELETE CASCADE, etc.
             $con->beginTransaction();
-            $affectedRows += BasePeer::doDeleteAll(CompresionPeer::TABLE_NAME, $con, CompresionPeer::DATABASE_NAME);
+            $affectedRows += BasePeer::doDeleteAll(DatasetValoracionPeer::TABLE_NAME, $con, DatasetValoracionPeer::DATABASE_NAME);
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            CompresionPeer::clearInstancePool();
-            CompresionPeer::clearRelatedInstancePool();
+            DatasetValoracionPeer::clearInstancePool();
+            DatasetValoracionPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -616,9 +888,9 @@ abstract class BaseCompresionPeer
     }
 
     /**
-     * Performs a DELETE on the database, given a Compresion or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a DatasetValoracion or Criteria object OR a primary key value.
      *
-     * @param      mixed $values Criteria or Compresion object or primary key or array of primary keys
+     * @param      mixed $values Criteria or DatasetValoracion object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param      PropelPDO $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -629,32 +901,32 @@ abstract class BaseCompresionPeer
      public static function doDelete($values, PropelPDO $con = null)
      {
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             // invalidate the cache for all objects of this type, since we have no
             // way of knowing (without running a query) what objects should be invalidated
             // from the cache based on this Criteria.
-            CompresionPeer::clearInstancePool();
+            DatasetValoracionPeer::clearInstancePool();
             // rename for clarity
             $criteria = clone $values;
-        } elseif ($values instanceof Compresion) { // it's a model object
+        } elseif ($values instanceof DatasetValoracion) { // it's a model object
             // invalidate the cache for this single object
-            CompresionPeer::removeInstanceFromPool($values);
+            DatasetValoracionPeer::removeInstanceFromPool($values);
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(CompresionPeer::DATABASE_NAME);
-            $criteria->add(CompresionPeer::ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(DatasetValoracionPeer::DATABASE_NAME);
+            $criteria->add(DatasetValoracionPeer::ID, (array) $values, Criteria::IN);
             // invalidate the cache for this object(s)
             foreach ((array) $values as $singleval) {
-                CompresionPeer::removeInstanceFromPool($singleval);
+                DatasetValoracionPeer::removeInstanceFromPool($singleval);
             }
         }
 
         // Set the correct dbName
-        $criteria->setDbName(CompresionPeer::DATABASE_NAME);
+        $criteria->setDbName(DatasetValoracionPeer::DATABASE_NAME);
 
         $affectedRows = 0; // initialize var to track total num of affected rows
 
@@ -664,7 +936,7 @@ abstract class BaseCompresionPeer
             $con->beginTransaction();
 
             $affectedRows += BasePeer::doDelete($criteria, $con);
-            CompresionPeer::clearRelatedInstancePool();
+            DatasetValoracionPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -675,13 +947,13 @@ abstract class BaseCompresionPeer
     }
 
     /**
-     * Validates all modified columns of given Compresion object.
+     * Validates all modified columns of given DatasetValoracion object.
      * If parameter $columns is either a single column name or an array of column names
      * than only those columns are validated.
      *
      * NOTICE: This does not apply to primary or foreign keys for now.
      *
-     * @param      Compresion $obj The object to validate.
+     * @param      DatasetValoracion $obj The object to validate.
      * @param      mixed $cols Column name or array of column names.
      *
      * @return mixed TRUE if all columns are valid or the error message of the first invalid column.
@@ -691,8 +963,8 @@ abstract class BaseCompresionPeer
         $columns = array();
 
         if ($cols) {
-            $dbMap = Propel::getDatabaseMap(CompresionPeer::DATABASE_NAME);
-            $tableMap = $dbMap->getTable(CompresionPeer::TABLE_NAME);
+            $dbMap = Propel::getDatabaseMap(DatasetValoracionPeer::DATABASE_NAME);
+            $tableMap = $dbMap->getTable(DatasetValoracionPeer::TABLE_NAME);
 
             if (! is_array($cols)) {
                 $cols = array($cols);
@@ -708,7 +980,7 @@ abstract class BaseCompresionPeer
 
         }
 
-        return BasePeer::doValidate(CompresionPeer::DATABASE_NAME, CompresionPeer::TABLE_NAME, $columns);
+        return BasePeer::doValidate(DatasetValoracionPeer::DATABASE_NAME, DatasetValoracionPeer::TABLE_NAME, $columns);
     }
 
     /**
@@ -716,23 +988,23 @@ abstract class BaseCompresionPeer
      *
      * @param      int $pk the primary key.
      * @param      PropelPDO $con the connection to use
-     * @return Compresion
+     * @return DatasetValoracion
      */
     public static function retrieveByPK($pk, PropelPDO $con = null)
     {
 
-        if (null !== ($obj = CompresionPeer::getInstanceFromPool((string) $pk))) {
+        if (null !== ($obj = DatasetValoracionPeer::getInstanceFromPool((string) $pk))) {
             return $obj;
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria = new Criteria(CompresionPeer::DATABASE_NAME);
-        $criteria->add(CompresionPeer::ID, $pk);
+        $criteria = new Criteria(DatasetValoracionPeer::DATABASE_NAME);
+        $criteria->add(DatasetValoracionPeer::ID, $pk);
 
-        $v = CompresionPeer::doSelect($criteria, $con);
+        $v = DatasetValoracionPeer::doSelect($criteria, $con);
 
         return !empty($v) > 0 ? $v[0] : null;
     }
@@ -742,23 +1014,23 @@ abstract class BaseCompresionPeer
      *
      * @param      array $pks List of primary keys
      * @param      PropelPDO $con the connection to use
-     * @return Compresion[]
+     * @return DatasetValoracion[]
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
     public static function retrieveByPKs($pks, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(CompresionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(DatasetValoracionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         $objs = null;
         if (empty($pks)) {
             $objs = array();
         } else {
-            $criteria = new Criteria(CompresionPeer::DATABASE_NAME);
-            $criteria->add(CompresionPeer::ID, $pks, Criteria::IN);
-            $objs = CompresionPeer::doSelect($criteria, $con);
+            $criteria = new Criteria(DatasetValoracionPeer::DATABASE_NAME);
+            $criteria->add(DatasetValoracionPeer::ID, $pks, Criteria::IN);
+            $objs = DatasetValoracionPeer::doSelect($criteria, $con);
         }
 
         return $objs;
@@ -791,15 +1063,15 @@ abstract class BaseCompresionPeer
     {
       if (preg_match('/^do(Select|Count)(Join(All(Except)?)?|Stmt)?/', $method, $match))
       {
-        return sprintf('BaseCompresionPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
+        return sprintf('BaseDatasetValoracionPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
       }
 
       throw new LogicException(sprintf('Unrecognized function "%s"', $method));
     }
 
-} // BaseCompresionPeer
+} // BaseDatasetValoracionPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BaseCompresionPeer::buildTableMap();
+BaseDatasetValoracionPeer::buildTableMap();
 
