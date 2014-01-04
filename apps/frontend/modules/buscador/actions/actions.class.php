@@ -45,16 +45,42 @@ class buscadorActions extends sfActions
 			$index = $elastic->getIndex('datasets');
 		}
 
-		$queryObject = new Elastica_Query(new Elastica_Query_QueryString( trim($request->getParameter('query')).'*' ));
-		$resultSet = $index->search($queryObject);
+		$query = $this->limpiaQuery($request->getParameter('query'));
+		// echo '<pre>'; var_dump($query); echo '</pre>'; return;
 
-		$salida = array();
-		foreach ($resultSet as $result) {
-			$dataset = new Dataset();
-			$dataset->fromArray($result->getSource());
-			$salida[] = array('id'=>$dataset->getId(), 'value'=>$dataset->getDataset());
+		if($query){
+			$queryString = new Elastica_Query_QueryString( $query );
+			$queryObject = new Elastica_Query($queryString);
+			$resultSet = $index->search($queryObject);
+
+			$salida = array();
+			foreach ($resultSet as $result) {
+				$dataset = new Dataset();
+				$dataset->fromArray($result->getSource());
+				$salida[] = array(
+					'id'=>$dataset->getId(), 
+					'title'=>$dataset->getDataset(), 
+					'tags'=>$dataset->getTags(),
+					'url'=>$dataset->getUrl()
+				);
+			}
 		}
+		
+		if(!$query || !$salida)
+			$salida = array(array('id'=>0, 'title'=>'No hay resultados'));
 
 		return $this->renderText( $request->getParameter('callback').'('.json_encode($salida).')' );
+	}
+
+	private function limpiaQuery($query){
+		$elim = array("a","ante","con","de","en","para","por","sin","sobre","tras","y","e","o","u");
+
+		$query = strtolower(trim($query));
+		$query = explode(' ', $query);
+		$query = array_diff($query, $elim);
+		$query = implode('~ ', $query);
+		//if($query && substr($query, -1)!='~') $query .= '~*';
+		$query .= '~';
+		return $query;
 	}
 }

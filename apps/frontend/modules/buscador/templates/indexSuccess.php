@@ -1,11 +1,11 @@
 <!-- Jumbotron -->
 <div class="jumbotron text-center">
 	<h1>INDAGO</h1>
-	<p class="lead">INdexador de Datos de Gobierno :: Buscador de Datos P&uacute;blicos</p>
+	<p class="lead">Indexador de Datos de Gobierno y Organizaciones :: Buscador de Datos P&uacute;blicos</p>
 	
 	<form id="buscador" class="form-inline" role="form" method="post" action="#">
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Ej: quiebras por a&ntilde;o, valorizaci&oacute;n fondos mutuos, establecimientos educacionales" 
+			<input type="text" class="form-control input-lg" placeholder="Ej: quiebras por a&ntilde;o, valorizaci&oacute;n fondos mutuos, establecimientos educacionales" 
 			name="query" id="query" size="100" />
 			<script type="text/javascript">
 			jQuery(document).ready(function(){
@@ -18,18 +18,65 @@
 								query: request.term
 							},
 							success: function( data ) {
-								response( jQuery.map( data, function( item ) {
+								/*response( jQuery.map( data, function( item ) {
 									return {
 										label: item.value,
 										value: item.value,
 										id: item.id
 									}
-								}));
+								}));*/
+								var tabla = jQuery('<table>')
+									.addClass('table')
+									.append(
+										jQuery('<tr>')
+											.append( jQuery('<th>').text('Documento') )
+											.append( jQuery('<th>').text('Palabras Clave') )
+											.append( jQuery('<th>').text('Acciones') )
+									);
+
+								var valido = false;
+
+								jQuery(data).each(function(i, item){
+									if(item.id == 0) return;
+									valido = true;
+
+									tr = jQuery('<tr>')
+										.append(
+											jQuery('<td>')
+												.addClass('h4')
+												.text(item.title)
+										).append(
+											jQuery('<td>')
+												.addClass('small')
+												.text(item.tags)
+									
+										).append(
+											jQuery('<td>')
+												.addClass('acciones')
+												.append(
+													jQuery('<a>')
+														.attr('href', item.url)
+														.attr('title', 'Ir al archivo')
+														.addClass('glyphicon glyphicon-globe')
+												)
+												.append(
+													jQuery('<a>')
+														.attr('href', '<?php echo url_for('dataset/detalle') ?>/id/'+item.id)
+														.attr('title', 'Ver detalles')
+														.addClass('glyphicon glyphicon-eye-open')
+												)
+										);
+
+									tabla.append(tr);
+								});
+
+								if(valido)
+									jQuery('#result').html(tabla);
 							}
 						});
 					},
 					minLength: 3,
-					select: function( event, ui ) {
+					/*select: function( event, ui ) {
 						jQuery.ajax({
 							url: "<?php echo url_for('dataset/preview') ?>",
 							data: {id: ui.item.id},
@@ -37,14 +84,14 @@
 								jQuery('#result').html(data);
 							}
 						});
-					}
+					}*/
 				});
 			});
 			</script>
 		</div>
-		<div class="form-group">
+		<!--<div class="form-group">
 			<input type="submit" class="form-control btn btn-success" value="buscar" />
-		</div>
+		</div>-->
 	</form>
 </div>
 
