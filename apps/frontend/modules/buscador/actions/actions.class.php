@@ -57,12 +57,17 @@ class buscadorActions extends sfActions
 			foreach ($resultSet as $result) {
 				$dataset = new Dataset();
 				$dataset->fromArray($result->getSource());
-				$salida[] = array('id'=>$dataset->getId(), 'value'=>$dataset->getDataset());
+				$salida[] = array(
+					'id'=>$dataset->getId(), 
+					'title'=>$dataset->getDataset(), 
+					'tags'=>$dataset->getTags(),
+					'url'=>$dataset->getUrl()
+				);
 			}
 		}
 		
 		if(!$query || !$salida)
-			$salida = array(array('id'=>0, 'value'=>'No hay resultados'));
+			$salida = array(array('id'=>0, 'title'=>'No hay resultados'));
 
 		return $this->renderText( $request->getParameter('callback').'('.json_encode($salida).')' );
 	}
