@@ -1,0 +1,3 @@
+detalleSuccess:
+  layout: layout_detalle
+  stylesheets: ['detalle.css']

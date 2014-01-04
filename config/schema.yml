@@ -1,0 +1,22 @@
+propel:
+  formato:
+    _attributes: {phpName: Formato}
+    id: ~
+    formato: varchar(255)
+
+  compresion:
+    _attributes: {phpName: Compresion}
+    id: ~
+    compresion: varchar(255)
+
+  dataset:
+    _attributes: {phpName: Dataset}
+    id: ~
+    dataset: { type: varchar(255), required: true }
+    url: { type: longvarchar, required: true }
+    descripcion: longvarchar
+    tags: longvarchar
+    formato_id: ~
+    compresion_id: ~
+    cabeceras: longvarchar
+    created_at: ~
