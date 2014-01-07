@@ -1,5 +1,63 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+
 .acciones a{
 	margin-right: 1em;
+}
+
+.barra_top_azul{
+	border-top: 4px solid #0c6cb8;
+}
+
+.barra_left_azul{
+	border-left: 4px solid #0c6cb8;
+}
+
+.barra_top_roja{
+	border-top: 4px solid #ee4143;	
+}
+
+.barra_left_roja{
+	border-left: 4px solid #ee4143;	
+}
+
+.dataset_url{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: block;
+	overflow: hidden;
+}
+
+.jumbotron{
+	background-color: #eaedf2;
 }
 
 .highlight {
@@ -12,11 +70,4 @@ border-radius: 4px;
 
 .text-justify{
 	text-align:justify;text-justify:inter-word;
-}
-
-.dataset_url{
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	display: block;
-	overflow: hidden;
 }

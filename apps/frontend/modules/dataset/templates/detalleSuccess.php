@@ -13,39 +13,50 @@
 		<?php echo $dataset->getFormato() ?>
 	</div>
 
-	<div class="col-sm-2">
+	<div class="col-sm-1">
 	<?php if ($dataset->getCompresionId()): ?>
 		<span class="glyphicon glyphicon-compressed"></span>
 		<?php echo $dataset->getCompresion() ?>
 	<?php endif ?>
 	</div>
 
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 		<?php $val = $dataset->getValoracion() ?>
-		 <div class="valorizador" data-average="<?php echo $val->getPromedio() ?>" data-id="<?php echo $dataset->getId() ?>"></div>
-		 <script type="text/javascript">
-		 	jQuery(document).ready(function(){
-				// more complex jRating call
-				jQuery(".valorizador").jRating({
-					bigStarsPath: '/js/rating/icons/stars.png',
-					smallStarsPathString: '/js/rating/icons/small.png',
-					phpPath: '<?php echo url_for('dataset/valorizador') ?>',
-					step:true,
-					length : 7, // nb of stars
-					rateMax: 7,
-					canRateAgain: false,
-					onSuccess : function(){
-						alert('Gracias : tu calificaci\xF3n ha sido registrada :)');
-					}
-				});
+		<div class="valorizador" data-average="<?php echo $val->getPromedio() ?>" data-id="<?php echo $dataset->getId() ?>"></div>
+		<script type="text/javascript">
+			jQuery(document).ready(function(){
+			// more complex jRating call
+			jQuery(".valorizador").jRating({
+				bigStarsPath: '/js/rating/icons/stars.png',
+				smallStarsPathString: '/js/rating/icons/small.png',
+				phpPath: '<?php echo url_for('dataset/valorizador') ?>',
+				step:true,
+				length : 7, // nb of stars
+				rateMax: 7,
+				canRateAgain: false,
+				onSuccess : function(){
+					alert('Gracias : tu calificaci\xF3n ha sido registrada :)');
+				}
 			});
-		 </script>
+		});
+		</script>
 	</div>
 </div>
 
 <div class="row">
 	<div class="col-sm-12">
-		<h3>&nbsp;</h3>
+		<h4>&nbsp;</h4>
+		<p class="h4">
+			<?php foreach (explode(',', $dataset->getTags()) as $tag): ?>
+				<span class="label label-info"><?php echo trim(str_replace('"', '', $tag)) ?></span>	
+			<?php endforeach ?>
+		</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<h4>&nbsp;</h4>
 		<blockquote><p><?php echo $dataset->getDescripcion() ?></p></blockquote>
 	</div>
 </div>
@@ -61,17 +72,6 @@
 		<?php else: ?>
 			No se registran cabeceras
 		<?php endif ?>
-		</p>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-12">
-		<h3>Palabras Clave</h3>
-		<p class="h4">
-			<?php foreach (explode(',', $dataset->getTags()) as $tag): ?>
-				<span class="label label-info"><?php echo trim(str_replace('"', '', $tag)) ?></span>	
-			<?php endforeach ?>
 		</p>
 	</div>
 </div>
