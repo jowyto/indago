@@ -28,4 +28,23 @@ class Dataset extends BaseDataset
 		if($vals->count()) return $vals[0];
 		return new DatasetValoracion();
 	}
+
+	public function save(PropelPDO $con = null){
+		parent::save($con);
+
+		// guardar en elastic
+		$datasets = DatasetQuery::create()->find();
+		$elastic = sfElasticSearch::getInstance();
+		
+		if(!$elastic->getStatus()->indexExists('datasets'))
+			$index = $elastic->getIndex('datasets')->create();
+		else{
+			$index = $elastic->getIndex('datasets');
+		}
+		$type = $index->getType('dataset');
+
+		$doc = new Elastica_Document($dataset->getId(), $dataset->toArray());
+		$type->addDocument($doc);
+		$index->refresh();
+	}
 }

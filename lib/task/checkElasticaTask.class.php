@@ -32,7 +32,6 @@ EOF;
 		$databaseManager = new sfDatabaseManager($this->configuration);
 		$connection = $databaseManager->getDatabase($options['connection'])->getConnection();
 
-		// add your code here
 		$datasets = DatasetQuery::create()->find();
 		$elastic = sfElasticSearch::getInstance();
 		
@@ -50,7 +49,7 @@ EOF;
 			$query = Elastica_Query::create($idsFilter);
 			$result = $type->search($query);
 
-			var_dump($result);
+			//var_dump($result);
 
 			if( !$result->count() ){
 				// lo agregamos
