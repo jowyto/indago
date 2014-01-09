@@ -1,7 +1,7 @@
 <!-- Jumbotron -->
-<div class="jumbotron text-center">
-	<h1>INDAGO</h1>
-	<p class="lead">Indexador de Datos de Gobierno y Organizaciones :: Buscador de Datos P&uacute;blicos</p>
+<div class="jumbotron text-center" id="jumbotron">
+	<h1 style="margin-top:0;"><img id="logoIndago" src="/images/logo.png" alt="Indago" width="50%" height="50%"/></h1>
+	<p class="lead" id="leadText">Indexador de Datos de Gobierno y Organizaciones :: Buscador de Datos P&uacute;blicos</p>
 	
 	<form id="buscador" class="form-inline" role="form" method="post" action="#">
 		<div class="form-group">
@@ -10,6 +10,7 @@
 				name="query" id="query" size="100" tabindex="1"/>
 
 			<script type="text/javascript">
+			var achicado = false;
 			jQuery(document).ready(function(){
 				jQuery( "#query" ).focus();
 				jQuery( "#query" ).autocomplete({
@@ -77,12 +78,20 @@
 
 								tabla.append( body );
 
-								if(valido)
+								if(valido){
+									if(!achicado){
+										jQuery('#jumbotron').animate({backgroundColor: '#fff', paddingBottom: '0'}, 'slow');
+										jQuery('#logoIndago').animate({width: '35%', height: '35%'} ,'slow');
+										jQuery('#leadText').animate({fontSize: '0.8em'}, 'slow');
+										jQuery('#result').animate({backgroundColor: '#eaedf2', marginBottom: '4em'});
+										achicado = true;
+									}
 									jQuery('#result').html(tabla);
+								}
 							}
 						});
 					},
-					minLength: 3,
+					minLength: 5,
 					/*select: function( event, ui ) {
 						jQuery.ajax({
 							url: "<?php echo url_for('dataset/preview') ?>",
@@ -105,7 +114,7 @@
 <div id="result"></div>
 
 <!-- Example row of columns -->
-<div class="row">
+<div class="row" style="padding: 0 1.2em;">
 	<div class="col-sm-3 text-justify barra_top_azul">
 		<h2>Datos abiertos</h2>
 		<p><strong>Indago</strong> tiene como proposito recopilar en <strong>un solo buscador</strong> 

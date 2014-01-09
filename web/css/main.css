@@ -28,6 +28,11 @@ body {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
+#result{
+	padding-top: 0.5em;
+	font-size: 1.3em;
+}
+
 
 .acciones a{
 	margin-right: 1em;

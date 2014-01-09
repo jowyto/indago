@@ -22,7 +22,8 @@
 
 	<div class="col-sm-3">
 		<?php $val = $dataset->getValoracion() ?>
-		<div class="valorizador" data-average="<?php echo $val->getPromedio() ?>" data-id="<?php echo $dataset->getId() ?>"></div>
+		<div class="glyphicon glyphicon-star" style="float:left;line-height: 20px;"></div>
+		<div class="valorizador" style="float:left;" data-average="<?php echo $val->getPromedio() ?>" data-id="<?php echo $dataset->getId() ?>"></div>
 		<script type="text/javascript">
 			jQuery(document).ready(function(){
 			// more complex jRating call
@@ -73,5 +74,21 @@
 			No se registran cabeceras
 		<?php endif ?>
 		</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<h3>Comentarios</h3>
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=457777331016083";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		</script>
+		<div class="fb-comments" data-href="<?php echo sfContext::getInstance()->getRequest()->getUri(); ?>" data-numposts="10" data-colorscheme="light"></div>
 	</div>
 </div>
