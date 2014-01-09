@@ -14,8 +14,17 @@
     <![endif]-->
 </head>
 <body>
-	<div class="container">
-		<?php echo $sf_content ?>
+	<div id="wrap">
+		<div class="container">
+			<?php echo $sf_content ?>
+		</div>
+	</div>
+
+	<div id="footer">
+		<div class="container">
+		<p class="text-muted text-right">Desarrollado por <a href="http://www.kinesys.cl/">Kinesys</a> 
+			| Colaboraci&oacute;n de <a href="http://www.davoscript.cl/">DavoScript</a></p>
+		</div>
 	</div>
 </body>
 </html>

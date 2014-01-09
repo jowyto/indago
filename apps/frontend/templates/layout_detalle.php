@@ -14,15 +14,24 @@
     <![endif]-->
 </head>
 <body>
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="<?php echo url_for('@homepage') ?>">INDAGO :: Indice de Datos Abiertos de Gobierno y Organizaciones</a>
+	<div id="wrap">
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="<?php echo url_for('@homepage') ?>">INDAGO :: Indice de Datos Abiertos de Gobierno y Organizaciones</a>
+				</div>
 			</div>
 		</div>
+		<div class="container">
+			<?php echo $sf_content ?>
+		</div>
 	</div>
-	<div class="container">
-		<?php echo $sf_content ?>
+
+	<div id="footer">
+		<div class="container">
+		<p class="text-muted text-right">Desarrollado por <a href="http://www.kinesys.cl/">Kinesys</a> 
+			| Colaboraci&oacute;n de <a href="http://www.davoscript.cl/">DavoScript</a></p>
+		</div>
 	</div>
 </body>
 </html>

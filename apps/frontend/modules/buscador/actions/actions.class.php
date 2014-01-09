@@ -73,14 +73,18 @@ class buscadorActions extends sfActions
 	}
 
 	private function limpiaQuery($query){
-		$elim = array("a","ante","con","de","en","para","por","sin","sobre","tras","y","e","o","u");
+		$elim = array("a","ante","con","de","en","para","por","sin","sobre","tras","y","e","o","u", "el", "la", "lo");
 
 		$query = strtolower(trim($query));
 		$query = explode(' ', $query);
 		$query = array_diff($query, $elim);
-		$query = implode('~ ', $query);
+		foreach ($query as $i => $term) {
+			if(strlen($term)>3)
+				$query[$i] = $query[$i].'~0.8';
+		}
+		$query = implode(' ', $query);
 		//if($query && substr($query, -1)!='~') $query .= '~*';
-		$query .= '~';
+		//$query .= '~';
 		return $query;
 	}
 }

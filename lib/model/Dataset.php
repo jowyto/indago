@@ -43,7 +43,7 @@ class Dataset extends BaseDataset
 		}
 		$type = $index->getType('dataset');
 
-		$doc = new Elastica_Document($dataset->getId(), $dataset->toArray());
+		$doc = new Elastica_Document($this->getId(), $this->toArray());
 		$type->addDocument($doc);
 		$index->refresh();
 	}

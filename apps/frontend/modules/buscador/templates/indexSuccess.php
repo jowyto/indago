@@ -1,14 +1,18 @@
 <!-- Jumbotron -->
-<div class="jumbotron text-center">
-	<h1>INDAGO</h1>
-	<p class="lead">Indexador de Datos de Gobierno y Organizaciones :: Buscador de Datos P&uacute;blicos</p>
+<div class="jumbotron text-center" id="jumbotron">
+	<h1 style="margin-top:0;"><img id="logoIndago" src="/images/logo.png" alt="Indago" width="50%" height="50%"/></h1>
+	<p class="lead" id="leadText">Indexador de Datos de Gobierno y Organizaciones :: Buscador de Datos P&uacute;blicos</p>
 	
 	<form id="buscador" class="form-inline" role="form" method="post" action="#">
 		<div class="form-group">
-			<input type="text" class="form-control input-lg" placeholder="Ej: quiebras por a&ntilde;o, valorizaci&oacute;n fondos mutuos, establecimientos educacionales" 
-			name="query" id="query" size="100" />
+			<input type="text" class="form-control input-lg" 
+				placeholder="Ej: quiebras por a&ntilde;o, valorizaci&oacute;n fondos mutuos, establecimientos educacionales" 
+				name="query" id="query" size="100" tabindex="1"/>
+
 			<script type="text/javascript">
+			var achicado = false;
 			jQuery(document).ready(function(){
+				jQuery( "#query" ).focus();
 				jQuery( "#query" ).autocomplete({
 					source: function( request, response ) {
 						jQuery.ajax({
@@ -26,15 +30,18 @@
 									}
 								}));*/
 								var tabla = jQuery('<table>')
-									.addClass('table')
+									.addClass('table table-hover')
 									.append(
-										jQuery('<tr>')
-											.append( jQuery('<th>').text('Documento') )
-											.append( jQuery('<th>').text('Palabras Clave') )
-											.append( jQuery('<th>').text('Acciones') )
+										jQuery('<thead>').append(
+											jQuery('<tr>')
+												.append( jQuery('<th>').text('Documento') )
+												.append( jQuery('<th>').text('Palabras Clave') )
+												.append( jQuery('<th>').text('Acciones') )
+										)
 									);
 
 								var valido = false;
+								var body = jQuery('<tbody>');
 
 								jQuery(data).each(function(i, item){
 									if(item.id == 0) return;
@@ -43,7 +50,6 @@
 									tr = jQuery('<tr>')
 										.append(
 											jQuery('<td>')
-												.addClass('h4')
 												.text(item.title)
 										).append(
 											jQuery('<td>')
@@ -67,15 +73,25 @@
 												)
 										);
 
-									tabla.append(tr);
+									body.append( tr );
 								});
 
-								if(valido)
+								tabla.append( body );
+
+								if(valido){
+									if(!achicado){
+										jQuery('#jumbotron').animate({backgroundColor: '#fff', paddingBottom: '0'}, 'slow');
+										jQuery('#logoIndago').animate({width: '35%', height: '35%'} ,'slow');
+										jQuery('#leadText').animate({fontSize: '0.8em'}, 'slow');
+										jQuery('#result').animate({backgroundColor: '#eaedf2', marginBottom: '4em'});
+										achicado = true;
+									}
 									jQuery('#result').html(tabla);
+								}
 							}
 						});
 					},
-					minLength: 3,
+					minLength: 5,
 					/*select: function( event, ui ) {
 						jQuery.ajax({
 							url: "<?php echo url_for('dataset/preview') ?>",
@@ -98,19 +114,19 @@
 <div id="result"></div>
 
 <!-- Example row of columns -->
-<div class="row">
-	<div class="col-sm-3 text-justify">
+<div class="row" style="padding: 0 1.2em;">
+	<div class="col-sm-3 text-justify barra_top_azul">
 		<h2>Datos abiertos</h2>
 		<p><strong>Indago</strong> tiene como proposito recopilar en <strong>un solo buscador</strong> 
 		la ubicaci&oacute;n de los distintos conjuntos de <strong>datos p&uacute;blicos</strong> que 
 		exponen los diferentes <strong>Ministerios o Servicios del Gobierno y Estado de Chile</strong></p>
 	</div>
-	<div class="col-sm-3 text-justify">
+	<div class="col-sm-3 text-justify barra_top_roja">
 		<h2>&iquest;Y para qu&eacute;?</h2>
 		<p>Con estas datos podr&aacute;s generar informaci&oacute;n &uacute;til para ti y/o tu comunidad,
 		monitorear la actividad de la autoridad, crear aplicaciones que ayuden a otros, y mucho m&aacute;s!</p>
 	</div>
-	<div class="col-sm-3 text-justify">
+	<div class="col-sm-3 text-justify barra_top_azul">
 		<h2>Quiero aportar!</h2>
 		<p>Si sabes de datos que no están en nuestra base ayudanos a encontrarla ;)</p>
 		<p class="text-center">
@@ -120,7 +136,7 @@
 			</button>
 		</p>
 	</div>
-	<div class="col-sm-3">
+	<div class="col-sm-3 barra_top_roja">
 		<h2>Muy Interesante</h2>
 		<p>
 			<ul>
